@@ -3,7 +3,7 @@
   libglvnd, mesa, systemd, libnotify, fontconfig, freetype }:
 
 stdenv.mkDerivation rec {
-  pname = "waterfox-bin";
+  pname = "waterfox";
   version = "6.7.3";
 
   src = fetchurl {
