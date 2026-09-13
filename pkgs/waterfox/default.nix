@@ -29,12 +29,14 @@ in
 
   branding = "waterfox/browser/branding";
 
-  configureFlags = [
+  extraConfigureFlags = [
     "--with-app-name=${pname}"
     "--with-app-basename=${applicationName}"
     "--with-unsigned-addon-scopes=app,system"
     "--disable-bootstrap"
   ];
+
+  MOZBUILD_STATE_PATH = "$TMPDIR/mozbuild";
 
   meta = {
     mainProgram = "waterfox";
