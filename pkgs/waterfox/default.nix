@@ -29,7 +29,7 @@ in
 
   branding = "waterfox/browser/branding";
 
-  configureFlags = [
+  extraConfigureFlags = [
     "--with-app-name=${pname}"
     "--with-app-basename=${applicationName}"
     "--with-unsigned-addon-scopes=app,system"
