@@ -1,6 +1,8 @@
-{ stdenv, fetchurl, autoPatchelfHook, wrapGAppsHook,
-  xorg, gtk3, alsa-lib, dbus, dbus-glib, glib, pango, nss, nspr, atk, pciutils, 
-  libglvnd, mesa, systemd, libnotify, fontconfig, freetype }:
+{ stdenv, lib, fetchurl, autoPatchelfHook, makeWrapper,
+  xorg, gtk3, alsa-lib, dbus, glib, pango, nss, nspr, atk, pciutils, 
+  mesa, systemd, libnotify, fontconfig, freetype,
+  libGL, libuuid
+}:
 
 stdenv.mkDerivation rec {
   pname = "waterfox";
