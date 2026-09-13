@@ -11,7 +11,6 @@
   in {
     packages = eachSystem (system:
   let
-    # Меняем nixpkgs-stable на nixpkgs (это твоя unstable ветка)
     pkgs = import nixpkgs {
       system = "${system}";
     };
