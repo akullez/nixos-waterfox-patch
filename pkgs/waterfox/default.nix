@@ -58,7 +58,5 @@ in
     echo "ac_add_options --disable-bootstrap" >> .mozconfig
   '';
 
-  patches = lib.filter (p: 
-    !(lib.hasInfix "cbindgen-0.27.0-compat.patch" (builtins.toString p))
-  ) (old.patches or []);
+  patches = [];
 })
