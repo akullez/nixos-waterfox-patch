@@ -11,11 +11,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-2Pd9NDlHZDWLSsNlRzOJtGuArvWRVr+eD3K59hys0i8=";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook wrapGAppsHook ];
+  nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
 
   buildInputs = [
-    gtk3 alsa-lib dbus dbus-glib glib pango nss nspr atk pciutils
-    libglvnd mesa systemd libnotify fontconfig freetype
+    stdenv.cc.cc.lib 
+    gtk3 alsa-lib dbus glib pango nss nspr atk pciutils libuuid
+    mesa systemd libnotify fontconfig freetype libGL
     xorg.libX11 xorg.libxcb xorg.libXcomposite xorg.libXdamage
     xorg.libXext xorg.libXfixes xorg.libXrandr xorg.libXrender xorg.libXtst
   ];
