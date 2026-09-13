@@ -36,7 +36,9 @@ in
     "--disable-bootstrap"
   ];
 
-  MOZBUILD_STATE_PATH = "$TMPDIR/mozbuild";
+  preConfigure = ''
+    echo "ac_add_options --disable-bootstrap" >> .mozconfig
+  '';
 
   meta = {
     mainProgram = "waterfox";
