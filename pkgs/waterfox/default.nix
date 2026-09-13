@@ -9,7 +9,7 @@ let
     
     src = fetchurl {
       url = "https://cdn1.waterfox.net/waterfox/releases/${version}/Linux_x86_64/waterfox-${version}.tar.bz2";
-      hash = "sha256-2Pd9NDlHZDWLSsNlRzOJtGuArvWRVr+eD3K59hys0i8=";
+      hash = "sha256-JaX+TWnr3clQNY8vj9TC/lAQ1y4DbIQcAtrz8xddcDA=";
     };
 
     installPhase = ''
