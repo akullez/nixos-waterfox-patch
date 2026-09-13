@@ -36,10 +36,6 @@ in
     "--disable-bootstrap"
   ];
 
-  preConfigure = ''
-    echo "ac_add_options --disable-bootstrap" >> .mozconfig
-  '';
-
   meta = {
     mainProgram = "waterfox";
     description = "A privacy-focused, performance-oriented browser based on Firefox";
@@ -55,4 +51,8 @@ in
 }).override {
   crashreporterSupport = false;
   enableOfficialBranding = false;
-}
+}.overrideAttrs (old: {
+  preConfigure = (old.preConfigure or "") + ''
+    echo "ac_add_options --disable-bootstrap" >> .mozconfig
+  '';
+})
