@@ -25,6 +25,7 @@ stdenv.mkDerivation rec {
 
     cp -r * $out/opt/waterfox/
 
-    ln -s $out/opt/waterfox/waterfox $out/bin/waterfox
+    makeWrapper $out/opt/waterfox/waterfox $out/bin/waterfox \
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath buildInputs}"
   '';
 }
