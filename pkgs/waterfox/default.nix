@@ -21,6 +21,7 @@ in
       owner = "BrowserWorks";
       repo = "waterfox";
       rev = "refs/tags/${version}";
+      fetchSubmodules = true;
       hash = "sha256-MTlA/6R7opP7iPGlS67xmHCT+ZPyHBCBklGp6oYAzg8=";
     };
 
