@@ -36,6 +36,8 @@ in
     "--disable-bootstrap"
   ];
 
+  MOZBUILD_STATE_PATH = "$TMPDIR/mozbuild";
+
   meta = {
     mainProgram = "waterfox";
     description = "A privacy-focused, performance-oriented browser based on Firefox";
