@@ -23,6 +23,7 @@ buildFHSUserEnv {
   name = "waterfox";
   
   targetPkgs = pkgs: with pkgs; [
+    gtk3 # <--- Вернули пропажу
     alsa-lib dbus glib pango nss nspr atk pciutils
     mesa systemd libnotify fontconfig freetype
     libGL libuuid libxkbcommon libdrm wayland cairo gdk-pixbuf ffmpeg
