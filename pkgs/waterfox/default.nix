@@ -1,63 +1,30 @@
-# Modelled after LibreFox expression
-{
-  stdenv,
-  lib,
-  callPackage,
-  buildMozillaMach,
-  fetchFromGitHub
-}:
+{ stdenv, fetchurl, autoPatchelfHook, wrapGAppsHook,
+  xorg, gtk3, alsa-lib, dbus, dbus-glib, glib, pango, nss, nspr, atk, pciutils, 
+  libglvnd, mesa, systemd, libnotify, fontconfig, freetype }:
 
-let
-in
+stdenv.mkDerivation rec {
+  pname = "waterfox-bin";
+  version = "6.5.6";
 
-(
-  (buildMozillaMach rec {
-    pname = "waterfox";
-    applicationName = "Waterfox";
-    binaryName = "waterfox";
-    version = "6.5.6";
+  src = fetchurl {
+    url = "https://cdn1.waterfox.net/waterfox/releases/${version}/Linux_x86_64/waterfox-${version}.en-US.linux-x86_64.tar.bz2";
+    hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+  };
 
-    src = fetchFromGitHub {
-      owner = "BrowserWorks";
-      repo = "waterfox";
-      rev = "refs/tags/${version}";
-      fetchSubmodules = true;
-      hash = "";
-    };
+  nativeBuildInputs = [ autoPatchelfHook wrapGAppsHook ];
 
-    requireSigning = false;
+  buildInputs = [
+    gtk3 alsa-lib dbus dbus-glib glib pango nss nspr atk pciutils
+    libglvnd mesa systemd libnotify fontconfig freetype
+    xorg.libX11 xorg.libxcb xorg.libXcomposite xorg.libXdamage
+    xorg.libXext xorg.libXfixes xorg.libXrandr xorg.libXrender xorg.libXtst
+  ];
 
-    allowAddonSideload = true;
+  installPhase = ''
+    mkdir -p $out/bin $out/opt/waterfox
 
-    branding = "waterfox/browser/branding";
+    cp -r * $out/opt/waterfox/
 
-    extraConfigureFlags = [
-      "--with-app-name=${pname}"
-      "--with-app-basename=${applicationName}"
-      "--with-unsigned-addon-scopes=app,system"
-      "--disable-bootstrap"
-    ];
-
-    meta = {
-      mainProgram = "waterfox";
-      description = "A privacy-focused, performance-oriented browser based on Firefox";
-      homepage = "https://www.waterfox.net/";
-      platforms = lib.platforms.unix;
-      badPlatforms = lib.platforms.darwin;
-      broken = stdenv.buildPlatform.is32bit;
-      # since Firefox 60, build on 32-bit platforms fails with "out of memory".
-      # not in `badPlatforms` because cross-compilation on 64-bit machine might work.
-      maxSilent = 14400; # 4h, double the default of 7200s (c.f. #129212, #129115)
-      license = lib.licenses.mpl20;
-    };
-  }).override {
-    crashreporterSupport = false;
-    enableOfficialBranding = false;
-  }
-).overrideAttrs (old: {
-  preConfigure = (old.preConfigure or "") + ''
-    echo "ac_add_options --disable-bootstrap" >> .mozconfig
+    ln -s $out/opt/waterfox/waterfox $out/bin/waterfox
   '';
-
-  patches = [];
-})
+}
