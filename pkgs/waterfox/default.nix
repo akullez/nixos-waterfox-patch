@@ -1,7 +1,7 @@
 { lib, stdenv, fetchurl, buildFHSUserEnv }:
 
 let
-  version = "6.7.3";
+  version = "6.5.0";
   
   waterfox-extracted = stdenv.mkDerivation {
     pname = "waterfox-extracted";
