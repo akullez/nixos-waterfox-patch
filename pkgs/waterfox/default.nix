@@ -1,7 +1,7 @@
 { stdenv, lib, fetchurl, autoPatchelfHook, makeWrapper,
   xorg, gtk3, alsa-lib, dbus, glib, pango, nss, nspr, atk, pciutils, 
   mesa, systemd, libnotify, fontconfig, freetype,
-  libGL, libuuid
+  libGL, libuuid, libxkbcommon, libdrm, wayland, cairo, gdk-pixbuf, ffmpeg
 }:
 
 stdenv.mkDerivation rec {
@@ -19,15 +19,15 @@ stdenv.mkDerivation rec {
     stdenv.cc.cc.lib 
     gtk3 alsa-lib dbus glib pango nss nspr atk pciutils libuuid
     mesa systemd libnotify fontconfig freetype libGL
+    libxkbcommon libdrm wayland cairo gdk-pixbuf ffmpeg
     xorg.libX11 xorg.libxcb xorg.libXcomposite xorg.libXdamage
     xorg.libXext xorg.libXfixes xorg.libXrandr xorg.libXrender xorg.libXtst
   ];
 
   installPhase = ''
     mkdir -p $out/bin $out/opt/waterfox
-
     cp -r * $out/opt/waterfox/
-
+    
     makeWrapper $out/opt/waterfox/waterfox $out/bin/waterfox \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath buildInputs}"
   '';
